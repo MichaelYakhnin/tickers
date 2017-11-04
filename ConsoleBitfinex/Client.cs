@@ -23,9 +23,9 @@ namespace ConsoleBitfinex
             //BlockchainInfo.Connect("wss://ws.blockchain.info/inv").Wait();
 
 
-            GdaxService gdaxService = new GdaxService();
+           // GdaxService gdaxService = new GdaxService();
            // BitfinexService bitfinexService = new BitfinexService();
-           // BitstampService bitstampService = new BitstampService();
+            BitstampService bitstampService = new BitstampService();
         }
 
        

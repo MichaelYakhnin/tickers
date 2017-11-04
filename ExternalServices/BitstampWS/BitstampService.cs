@@ -1,4 +1,5 @@
-﻿using PusherClient;
+﻿using Newtonsoft.Json.Linq;
+using PusherClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,17 +20,26 @@ namespace ExternalServices.BitstampWS
             _pusher.Error += _pusher_Error;
 
             // Setup private channel
-            _chatChannel = _pusher.Subscribe("live_trades");
+            _chatChannel = _pusher.Subscribe("live_orders");
             _chatChannel.Subscribed += _chatChannel_Subscribed;
 
             // Inline binding!
-            _chatChannel.Bind("client-my-event", (dynamic data) =>
+            _chatChannel.BindAll((string ch, dynamic data) =>
             {
-                Console.WriteLine(data.message);
-                // GetData(data);
+                try
+                {
+                    //var obj = JObject.Parse(data);
+                    Console.WriteLine(data["price"]);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                
+                Console.WriteLine(data);
             });
 
-
+            
 
             _pusher.Connect();
 
