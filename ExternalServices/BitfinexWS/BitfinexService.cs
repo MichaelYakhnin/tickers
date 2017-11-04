@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -35,7 +36,24 @@ namespace ExternalServices.BitfinexWS
         public void GetRatesFromService(byte[] buffer)
         {
             var resultJson = (new UTF8Encoding()).GetString(buffer);
-           
+            if (resultJson.Contains("[") && !resultJson.Contains("hb"))
+            {
+                string[] separatingChars = { "[", ",","]" ,"\0"};
+
+                try
+                {
+                   
+                    string[] arr = resultJson.Split(separatingChars, System.StringSplitOptions.RemoveEmptyEntries);
+                    Console.WriteLine($"Ask: {arr[1]},Bid: {arr[3]}");
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                }
+
+            }
+
             Console.WriteLine(resultJson);
         }
     }

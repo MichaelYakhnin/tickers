@@ -22,8 +22,7 @@ namespace ExternalServices.GdaxWS
                 },
                 Channels = new object[]
                 {
-                  "level2",
-                  "heartbeat",
+                 
                   new channels
                   {
                       name = "ticker",
@@ -44,7 +43,26 @@ namespace ExternalServices.GdaxWS
         public void GetRatesFromService(byte[] buffer)
         {
             var resultJson = (new UTF8Encoding()).GetString(buffer);
-            //dynamic arr = JObject.Parse(resultJson);
+            if (!resultJson.Contains("[") )
+            {
+                string[] separatingChars = { "[", ",", "]", "\0" };
+
+                try
+                {
+
+                    string[] arr = resultJson.Split(separatingChars, System.StringSplitOptions.RemoveEmptyEntries);
+                    string withoutChars = resultJson.Replace("\0", "");
+                    var obj = JObject.Parse(withoutChars);
+                    Console.WriteLine($"Ask: {obj["best_ask"]},Bid: {obj["best_bid"]}");
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                }
+
+            }
+
             //GdaxTickerResponseModel gdaxTickerResponseModel = JsonConvert.DeserializeObject<GdaxTickerResponseModel>(resultJson);
             Console.WriteLine(resultJson);
         }

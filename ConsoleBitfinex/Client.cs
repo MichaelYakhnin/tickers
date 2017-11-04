@@ -24,8 +24,8 @@ namespace ConsoleBitfinex
 
 
             GdaxService gdaxService = new GdaxService();
-            BitfinexService bitfinexService = new BitfinexService();
-            BitstampService bitstampService = new BitstampService();
+           // BitfinexService bitfinexService = new BitfinexService();
+           // BitstampService bitstampService = new BitstampService();
         }
 
        
