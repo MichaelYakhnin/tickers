@@ -28,7 +28,7 @@ namespace ExternalServices.BitstampWS
             {
                 try
                 {
-                    //var obj = JObject.Parse(data);
+                    
                     Console.WriteLine(data["price"]);
                 }
                 catch(Exception ex)
